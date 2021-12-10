@@ -1,0 +1,1051 @@
+\documentclass[11pt, conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{kotex}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{supertabular,booktabs}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\usepackage{romannum}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{graphics}
+\usepackage{subfigure}
+\usepackage{float}
+%\usepackage[outdir=./]{epstopdf}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{ESG Home\\
+\small{Environment, Social, Governance and Home\\}
+}
+
+\author{
+\IEEEauthorblockN{Choi Hayoung}
+\IEEEauthorblockA{\textit{dept. Information System} \\
+\textit{Hanyang Univ.}\\
+Seoul, Republic of Korea \\
+chy21@hanyang.ac.kr}
+\and
+\IEEEauthorblockN{Yoon Changil}
+\IEEEauthorblockA{\textit{dept. Information System} \\
+\textit{Hanyang Univ.}\\
+Seoul, Republic of Korea \\
+samyci@naver.com}
+\and
+\IEEEauthorblockN{Jang Hyeongjun}
+\IEEEauthorblockA{\textit{dept. Information System} \\
+\textit{Hanyang Univ.}\\
+Seoul, Republic of Korea \\
+jhl7193@naver.com}
+\and
+\IEEEauthorblockN{Ko Byungchan}
+\IEEEauthorblockA{\textit{dept. Information System} \\
+\textit{Hanyang Univ.}\\
+Seoul, Republic of Korea \\
+bcgo99@hanyang.ac.kr}
+}
+\maketitle
+
+\begin{abstract}
+\textit{ESG stands for environment, social and governance. As ESG and environmental issues stand out, not only companies and governments but also individuals’ effort has been emphasized. Nevertheless, it’s difficult to put into action due to not only insufficient will to act but also lack of real-life intimate measures. In terms of real-life pro-environmental acts, it has been proven that reducing 1 minute of shower for a year saves 4.3kg of CO2, which is the same as the carbon footprint 0.6 pine trees reduce. Thus, we propose a solution which is practical for individuals and has a positive effect on companies with respect to ESG. The solutions are actions, such as reducing shower time, cutting down electric rice cooker insulation time, maintaining proper refrigerator capacity, etc. The actions are recommended based on the data recorded through IoTs in the house. As users choose the action they will carry out, our application describes how to put it into action. AI speakers and  IoTs such as smart mirrors aid users to conduct the actions. After conducting the action, users record what they did via the application and AI speaker. We manage the overall data in our database and visualize environmental effects through application. People can check the total amount of reduced carbon emission through the application. By implementing our system, corporations can propose pro-environmental actions for individuals.\\}
+\end{abstract}
+
+\begin{IEEEkeywords}
+ESG, environment, sustainability, carbon emission, Application, AI, ML, IoT\\  \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\ \\
+\end{IEEEkeywords}
+
+\large{Role Assignments}
+\begin{table}[H]
+\center
+\begin{tabular}{m{1.7cm} m{1.6cm} m{3.5cm}}
+\toprule
+Roles & Name & Task description \& etc.\\
+\midrule
+User & Choi HaYoung & She is interested in reducing carbon emissions at home. She uses a service that helps her reduce carbon emissions more easily in real life and checks if there are any inconveniences when actually using it. \\\\
+Customer & Jang HyeongJun & After hearing the news about carbon emissions recently,   he began to think about what he could do in his daily life. He looks for   currently launched services that help reduce carbon emissions and compare and   analyze similar services. \\\\
+Software developer & Ko ByungChan & He is the one who plays the role of implementing the service as a real program. He focuses on writing codes to provide actual services. \\\\
+Development manager & Yoon ChangIl & He manages the development schedule and organizes the service by reflecting the opinions of users and customers. Also he adjust the progress of the front and back ends based on the designed service. \\
+\bottomrule
+\end{tabular}
+\end{table}
+\newpage
+
+\section{\Large{Introduction}}
+\begin{enumerate}[label=\arabic*]
+    \item {\large{Motivation}} \\
+    Currently, the amount of all carbon emitted worldwide is very high. The emitted carbon itself cannot be recognized by human senses such as sight and touch. Therefore, even though a very large amount of carbon is being emitted, many people do not feel the need to actually reduce carbon. However, this large amount of carbon is causing abnormal climates and abnormal phenomena, causing direct damage to people. To solve this problem, many countries around the world are actively working to reduce carbon emissions. Each country is putting pressure on companies by implementing various policies for this purpose, and government-led projects are also making efforts to reduce carbon emissions. Thanks to these efforts, Korea, one of the countries participating in solving this problem, recorded 727.6 million tons of carbon emissions in 2018, the highest ever, 699.5 million tons in 2019 and 648.6 million tons in 2020. At this time, the most recent carbon emission in 2020 was reduced by about 7.3\% compared to 2019, demonstrating that Korea is actively participating in reducing carbon emission. However, according to the data released by the Ministry of Environment, while the total emission decreased by 7.3\%, the emission amount within each household increased slightly. This shows that efforts to reduce carbon emissions have only been made by governments and numerous companies. Therefore, our team thought that the results of these efforts would be very effective if we could reduce carbon emissions within each household as well as governments and businesses. For this, it is effective to use the fully automatic system of the developing IT technology, but it would be good if more people realize that the carbon emission problem is serious and that they can reduce the carbon emission at home through their very minor efforts.\\
+    Therefore, we investigated ways to reduce carbon emissions in the home. And there are many ways to reduce it at home, but we have chosen the list while considering our technology and the convenience of users. In addition, governments run systems advantageous to the people who're trying to reduce carbon emission. We can double the effect of our service with these systems.
+    \begin{enumerate}[label=\alph*]
+        \item Reducing shower time\\
+        People take a shower every day. To take a shower, it is necessary to use a boiler to warm the water and the water. Therefore, showers require a lot of energy consumption, and in general, people take showers without time limits, so they are used both in water and gas.\\
+        When taking a shower, the smart mirror is used, and when the user says that the user is taking a shower, the time of the smart mirror is changed to the target time timer. In addition, as time goes by, an alarm sounds periodically at a set time to give psychological pressure of time attack, and visually gives psychological pressure by changing the color displayed on the smart mirror. \\
+        Reducing average shower time by one minute reduces 4.3 kg carbon dioxide per person annually. 22,000 tons of carbon dioxide emission are decreased if 10\% of the total population in Korea conducts the action.
+        \item Electric rice cooker insulation function\\
+        In Korea, where rice is the staple food, it is used so much that 83\% of electric rice cookers are supplied. And according to data from the National Statistical Office, each household uses its thermal insulation function for an average of 9 hours a day.\\
+        If the cooked rice is subdivided and stored frozen, the time to use the thermal function can also be reduced.\\
+        Electric rice cooker insulation function is used 9 hours a day on average. Reducing an average of three hours a day reduces 142 kg carbon dioxide annually and saves 4,710 won of electricity bill per month. And if 10\% of the number of electric rice cookers supplied in Korea saves an average of 3 hours, carbon emissions of about 300,000 tons will be reduced.
+        \item Maintaining 60\% of refrigerator capacity\\
+        Refrigerators run 24 hours a day, 365 days a year and thus, they consume a lot of electricity.\\
+        The refrigerator is most effective when it’s 60\% filled. In the condition, cold air can circulate well, and the freezer is filled with maximum cold air.\\
+        Maintaining 60\% of refrigerator capacity reduces 40kg carbon dioxide annually and saves 1,330 won of electricity bill per month. If 10\% of the number of refrigerators supplied in Korea conducts the action, annual emissions will be reduced by about 140,000 tons.
+        \item Recycling\\
+        Recycling glass bottles, PET and cans reduces 88 kg carbon dioxide emissions per person annually. And if 10\% of the domestic population recycles, carbon emission decreases by about 460,000 tons over a year.\\
+        Recycled wastes that are not properly separated and discharged are classified as remnants and incinerated or landfilled, so a lot of carbon is emitted during this process. If the quality of the selected products is improved by proper separation and discharge, high-quality recyclables are produced, incineration or landfilling is reduced, the recycling rate is increased, and the use of pay-as-you-go bags is reduced.(About 500 million won: 300 billion won worth)\\
+        Using methods related to separate discharge or separate discharge apps, they let you know the correct separate discharge methods for each recycled product.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.2]{images/recycling.eps}
+        \end{figure}
+        \item Use of energy in each room
+        \begin{enumerate}[label=\roman]
+            \item Control of proper temperature for cooling and heating : \\
+            Since general heating and cooling system is controlled by user, it is unlikely that it is pro-environment\\
+            Since the energy control system built according to the smart home system automatically measures the amount of all energy used in each room, it is possible to control the indoor temperature and humidity by itself and reduce carbon emissions.
+            f the proper temperature for cooling and heating is automatically controlled, 167kg carbon dioxide emissions are reduced annually and 3,417 won electricity bills are saved. If 10\% of domestic households conduct the action, emissions will be reduced by about 350,000 tons per year.
+            \item Shutting off standby power : \\
+            Regardless of the actual use of electronic products, there is power that is unnecessarily wasted even when the power is turned off.\\
+            In the energy control system built in accordance with the smart home system, since the amount of all energy used in each room is automatically measured, it is possible to reduce carbon emissions by blocking standby power by itself.\\
+            If standby power is completely shut off, annual carbon dioxide emissions per household will be reduced by 82 kg, and electricity bills will be reduced by 2706 won. If 10\% of domestic households use the system, it will reduce emissions by about 170,000 tons.
+        \end{enumerate}
+        \item Using low-carbon products
+        \begin{enumerate}[label=\roman*]
+            \item Installation of water-saving devices : \\
+            The amount of greenhouse gas generated until 100L of tap water is produced and supplied to households is 33g. According to data from the National Statistical Office, the daily water supply per person in 2019 is 347L. The annual greenhouse gas emissions per person to produce tap water are 42 kg.\\
+            Installation of water-saving facilities (finished products) such as water-saving showerheads and water-saving equipment (replacement or additional installation of accessories).\\
+            Since water-saving devices can save water from at least 20\% to up to 66\%, it reduces 26kg of carbon dioxide emissions per household and saves 3758 won of water bills per month. And if 10\% of domestic households install water-saving devices, their emissions will be reduced by about 54,000 tons.
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale=0.2]{images/54000tons.eps}
+            \end{figure}
+            \item Using high-efficiency home appliances : \\
+            The number of home appliances is on the rise, and all home appliances used in the home actually generate the most electricity consumption. (The number of air conditioners per household is 0.65 in 2013 -> 0.93 in 2016)\\
+            There are a total of 1 to 5 grades for efficiency grades, and the lower the number, the better the efficiency. Therefore, you can induce them to buy home appliances with a low number of efficiency grades.\\
+            Using each home appliance (air conditioner, refrigerator, electric rice cooker, television, washing machine, dryer, air purifier) as a first-class efficient product reduces 202kg of carbon dioxide annually and saves 6,878 won per month in electricity bills. If 10\% of domestic households meet this condition, emissions of about 320,000 tons will be reduced. (The number of products supplied in Korea except for dryers and air purifiers already exceeds the number of households in Korea)
+            \item Use of eco-friendly condensing boilers : \\
+            Condensing boilers consume 28.4\% less fuel than regular boilers and emit 79\% less nitrogen oxides, the main cause of fine dust.\\
+            You can replace it with an eco-friendly condensing boiler.(200,000 won from the government)\\
+            Using eco-friendly boilers, reduces 200kg of carbon dioxide emissions per household, and saves 10833 won of fuel costs per month. If 10\% of detached houses in Korea use condensing boilers, 130,000 tons of emissions will be reduced. (Considering that central heating and local heating are applied to apartment houses, statistics are applied only to detached houses.) (Additionally, the Ministry of Environment is carrying out a project to support the installation of low-nox boilers for households.)
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale=0.3]{images/condensing.eps}
+            \end{figure}
+            \item Using LED lights : \\
+            Lighting is so high that it accounts for 30\% of the total electricity consumed in buildings and houses. LED lighting can save up to 90\% of power compared to existing lighting devices.\\
+            Light such as fluorescent lamps and incandescent lamps can be induced to be replaced with LED lights.\\
+            Changing to LED lights will reduce carbon dioxide emissions per unit by 39kg per year, and save KRW 1,280 per month on electricity bills. If 10\% of the number of fluorescent lamps supplied in Korea is replaced with LED lights, emission will be reduced by about 520,000 tons. (The total number of fluorescent lamps supplied in Korea is about 140 million and the number of households in Korea is about 20 million, so about 7 fluorescent lamps per household can be replaced with LED lights.)
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale=0.3]{images/led.eps}
+            \end{figure}
+            \item Using low-carbon certified products :
+                \begin{enumerate}[label= \romannum{5}.\roman*]
+                \item Using low-carbon products : \\
+                Among the products that provide consumers with information on carbon emissions from production to disposal, the government certifies that greenhouse gas emissions are low-carbon products if they are below a certain standard and continuously reduce greenhouse gas emissions. Therefore, even if a product of the same item is purchased, purchasing a low-carbon certified product reduces carbon emissions.\\
+                It encourages you to purchase products with a low carbon certification mark and allows you to check the list of low carbon certification products in the app. In addition, it provides consumers with information on carbon emissions generated throughout the entire process from production to disposal of products or services to consumers to feel the carbon reduction effect.\\
+                Using low-carbon products (when only considering bottled water) reduces annual carbon dioxide emissions by 3 kg per person. If 10\% of the domestic population uses it, it will reduce emissions by about 140,000 tons. (The Ministry of Environment is implementing the green card business and low-carbon product certification system.)
+                \item Low-carbon certified agricultural and livestock products : \\
+                Applying low-carbon agricultural technology reduces the input of energy and agricultural materials required during the entire production process, and using agricultural and livestock products that reduce greenhouse gas emissions reduces carbon emissions even with the same food ingredients.\\
+                It induces consumers to purchase foods labeled with low-carbon certified agricultural and livestock products, and allows consumers to recognize the carbon reduction effect on the products.\\
+                Using low-carbon certified agricultural and livestock products (when only considering apples) reduces annual carbon dioxide emissions by 1.4 kg per person. If 10\% of the domestic population uses it, emissions of 0.70,000 tons will be reduced. (The Ministry of Agriculture, Food and Rural Affairs is implementing a low-carbon agricultural product certification system, and the Ministry of Environment is conducting a green card business.)\\
+                \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+    \textbf{Economicalrewards\\
+    \textit{\small{eco-money and green card business}}}
+    \begin{enumerate}[label=\arabic*]
+        \item Seoul Eco Mileage : \\
+        (Program operated by Seoul Metropolitan Government) Earn up to 100,000 points per year when total household electricity, gas, and water consumption for 6 months is reduced by 15\% compared to the previous 2 years (1 point = 1 won)
+        \item Carbon point system : \\
+        (a program operated by the Ministry of Environment, nationwide except for Seoul) Earn up to 70,000 points per year when total household electricity, gas and water consumption is reduced by 10\% compared to the past two years (1 point = 1 one)
+        \item Free admission or discount for public facilities : \\
+        Presenting a green card when using public facilities nationwide provides free admission and various discounts.\\
+    \end{enumerate}
+
+    \item {\large{Problem Statement}}
+        \begin{enumerate}[label=\alph*]
+            \item According to the Greenhouse Gas Information Center in 2018, it emitted an average of 14.1 tons of carbon per person. Compared to the 1990s, the rate of increase is 107%.
+            \item ESG, especially environmental issues are one of the key elements in corporate evaluation. It means that companies’ environmental responsibilities are strengthened and thus they are trying to promote such projects.
+            \item 75.4\% of the respondents said they are interested in environmental improvement. Nevertheless, domestic carbon emissions are constantly increasing which means the common people are having difficulty practicing carbon-neutral life.
+            \item 90.5\% of the public are taking the climate change problem seriously and 41.6\% of the public are aware that carbon emission from energy usage is the main reason. Although, only 58.7\% of the public are striving to confront the situation. Most of the public are thinking about the carbon emission issue seriously, but their knowledge is not put into practice.[1]
+            \item It will ease people to put pro-environmental behaviors into action by helping individuals recognize the viable act and reminding it.
+            \item Applications that help reduce carbon emissions require users to remember and record all actions on their own which is too much of a hassle. It is needed to process all these indirectly and automatically.
+            \item We are going to get individual’s personal information from the users and suggest customized eco-friendly actions that they can put into actions in daily lives.
+            \item Our software presents the overall amount of reduced carbon dioxide emission in each household through the application, which can lead to more effort of people in carrying out the pro-environmental acts we propose.
+            \item For instance in household actions’ effect, cutting down one minute shower time, it reduces carbon emissions by about 4.3kg.
+            \item Our ultimate goal is to reduce carbon dioxide emission. Moreover, the company that conducts our software can have a positive effect on the environment and their ESG. Also, individuals can solve their frustration derived from being unable to put their thoughts into action.\\
+        \end{enumerate}
+        
+    \item {\large{Related Software}}
+        \begin{enumerate}[label=\alph*]
+            \item Time Your Shower\\
+            Time Your Shower helps users to spend less time in the shower. Users can insert their average shower time and goal shower time. It beeps every thirty seconds to alert users. By using this app repeatedly, naturally, users can expect to reduce shower time and quickly become a habit. \\
+            It is designed to be very intuitive and easy for anyone to use. However the developer should have added more functions to be more complete. It is almost the same as a regular smartphone timer which users would not feel the need to download. 
+            \item NMF.earth\\
+            NMF.earth is a nonprofit and community driven project. The goal of this app is to understand and reduce people’s carbon footprint. The founders know that tracking CO2 emissions is not a new idea, but the aim is to create an enjoyable and user-friendly interface, an app that is easy to use for everyone. To be specific, it tracks and calculates emissions related to transport, food, electricity and streaming. When users record their behavior, the amount of carbon emissions is calculated and it's able to check how much carbon they emit every day. Furthermore, NMF.earth provides a sustainable guide to reduce carbon emissions. \\
+            The project was initiated by Pierre Bresson and 25 developers, 4 designers and 10 translators have built the application. They are self-funded via Kickstarter and sponsored by the people which means that making money is not the main purpose. \\
+            The fatal disadvantage is that users have to record each and every action themselves. Not only does it come as an inconvenience, people who are not interested in the environment are bound to give up. Plus, there will be a lot of errors in the recording process. Compare to us, we automatically identify and record the user’s behavior to record carbon emissions. Based on this, it provides customized guides for reducing carbon emissions and guides users in practical helpful directions. 
+            \item Capture : Carbon Footprint \& CO2 Tracker for Travel and food
+            Capture is a free0to-use CO2 tracker that helps users to learn more about emissions from everyday mobility and dietary choices. Using a GPS-based algorithm, with users’ permissions, it automatically calculates the amount of carbon emitted in the process of moving by taking users’ location information whether users are taking a car, bus, plane or bicycle. After calculating the carbon emissions, users are able to check the average monthly carbon footprint and how much users decrease emissions compared to last month. Moreover, offset purchases with carbon offset effects such as planting trees are possible. It also provides guidance on carbon emissions and environmental news so that users can learn more and get closer about carbon emissions. \\
+            Capture was launched in 2019 by CoFounders Aziz and Josie. The pair set-out to build a tool that would empower the growing number of people around the world who aspired to live a more sustainable life. They have six angel investors and three advisors that help with the operation. Their main profit structure is taking a 10\% transaction fee on offsets.\\
+            Recording automatically through users’ movements is a great advantage. What is unfortunate is that it is too limited. And when users use transportation like subways, where GPS signals do not work well, the application will not be able to record properly. Since the app is capturing users’ GPS signals, ethical problems related to personal information may arise. Above all, it shows only the amount of carbon emissions, it does not provide a fundamental solution to how and what to reduce it. Users have to make their own decisions, but it is questionable whether it will be effective in emitting carbon.
+        \end{enumerate}
+\end{enumerate}
+
+\section{\Large{Requirement Analysis}}
+\begin{enumerate}[label=\arabic*]
+    \item {\large{Main}}\\
+    As the user downloads our application and starts, the application presents the initial main page. Initial main page is shown only at the first execution of the application. It shows a tutorial slide, which explains the application’s main functionality and effectiveness. After the user finishes reading the tutorial, the default main page is displayed. The default main page consists of sign in and sign up buttons.
+    \begin{enumerate}[label=\alph*]
+        \item Tutorial Slide  : prints out the main characteristics of the application.
+            \begin{enumerate}
+                \item household-centered management
+                \item Carbon emission-cutting actions recommendation based on analysis on the user’s life pattern
+                \item Brief visuals on the amount of the reduced carbon emission by the user, compared with previous usage.
+                \item Clicking ‘시작하기’ button on the last slide of tutorial will advance the user to the main page.
+            \end{enumerate}
+        \item Sign Up \& Sign in
+            \begin{enumerate}
+                \item Main page consists the logo of the application and 2 buttons - ‘가입하기’ and ‘로그인’. 
+                \item Each button leads to ‘가입하기’ and ‘로그인’ page respectively.\\
+            \end{enumerate}
+    \end{enumerate}
+    
+    \item {\large{Sign in}}\\
+    Users can log in to be the member of application. After signing in, the application will advance the user to the Home page.
+    \begin{enumerate}[label=\alph*]
+        \item ID and password input box : restriction on password (must include upper class, lower class and number \& not less than 8 letters)
+        \item Automatic Log-in check box (default : uncheck)
+        \item Search for password : move to password searching page
+        \item Login button : log in when conditions are satisfied. (ID and password must be both entered)\\
+    \end{enumerate}
+    
+    \item {\large{Sign up}}\\
+    There are 2 ways to sign up. The sign up page consists of buttons for each way to register - new household register and participate in existing household. New registration registers a new household that registers for the first time. The number of family members are inserted in this case. If a new household is registered, the members of the household can participate in the household through ‘register in the existing household’. ID, password and detailed information are entered during the registration. After the registration, user is moved to log in page.
+    \begin{enumerate}[label=\alph*]
+        \item New household registration
+        \begin{enumerate}
+            \item Insert ID and password of the household registrant
+            \begin{enumerate}[label=\arabic*]
+                \item ID double-check
+                \item Check the password restriction (must include upper class, lower class and number \& not less than 8 letters)
+            \end{enumerate}
+            \item Detailed information of the household registrant
+            \begin{enumerate}[label=\arabic*]
+                \item Name, age, gender and occupation
+                \item Life pattern, such as shower and electricity usage are inserted through the survey. The survey’s objective is to check the amount of carbon emission in the household.
+            \end{enumerate}
+            \item Insert the family member’s information
+            \begin{enumerate}[label=\arabic*]
+                \item Number of the family members
+                \item New block appears if the user clicks a button for adding the family member
+            \end{enumerate}
+            \item Click register \\                Error pop-up is shown when the ID and password restrictions are not satisfied
+        \end{enumerate}
+        \item Participate in existing household
+        \begin{enumerate}
+            \item Input box for household characteristic code
+            \item Insert ID and password of the present registrant
+            \item Insert detailed information of the present registrant
+            \item Click register\\
+        \end{enumerate}
+    \end{enumerate}
+    
+    \item {\large{Home}}\\
+    Navigating page after login. Information on overall reduced carbon emission reduction is presented.
+    \begin{enumerate}[label=\alph*]
+        \item Tab navigation bar located at the bottom of the page : Navigation bar that can locate user to the main functions(recommended act, records and user information)
+        \begin{enumerate}
+            \item Navigation stacks are initialized when they are moved from the login page to the home page, so that users cannot go back to the login page.
+            \item If the user clicks the ‘go back’ button two times, the application is terminated instead of the navigation stack initialized twice.
+        \end{enumerate}
+        \item Visual of overall carbon emission : Amount of carbon emitted this month is displayed in the circle located in the center of the page.
+        \begin{enumerate}
+            \item Amount of carbon emission that the household has emitted is displayed. 
+            \item Starting from 0, the edge of the circle is colored green until the emitted carbon is the same as the average of every household. When the emitted carbon exceeds the average, the color changes to red.
+            \item In the center, the percentage of emitted carbon of the household compared with the average is shown. When it exceeds the average, which is 100\%, the percentage also changes its color.
+        \end{enumerate}
+        \item At the bottom of the page, 2 most urgent recommended actions are presented.\\
+    \end{enumerate}
+    
+    \item {\large{Recommended action}}\\
+    Based on the detailed information which has been received at the time of registration, the application recommends customized practical actions that users can do in their home.
+    \begin{enumerate}[label=\alph*]
+        \item List of recommended actions : Recommended actions are displayed in list format. Users can check details of the action as they click an action block.
+        \begin{enumerate}
+            \item When the action block is clicked, guidance of the action is explained : trigger expression for NUGU speaker and ways to check the amount of carbon emission reduced by the action.
+            \item Also, the user can check the average and user’s carbon emission of the item he or she clicked. Bottom part displays the effect induced by the action.
+            \item By comparing the average carbon emission and the user’s emission of each item, urgency is expressed by visual effects, such as colors.
+        \end{enumerate}
+        \item Each action is linked with a NUGU speaker and smart electronics, so that practicing the actions are convenient.
+        \item Recommendable actions
+        \begin{enumerate}
+            \item Shower\\
+            Shower block is presented as an urgent block when the user’s shower time is longer than standard time. Standard time is the average shower time of people in his/her group.\\
+            When the user clicks the shower block, a tab shows up. It consists of the user’s emission, the group’s emission and expected reduced emission of the group (regression analyzed based on their reduced emission). The group consists of people whose age and gender is the same as the user.\\
+            Procedure is as follows :
+            \begin{enumerate}[label=\arabic*]
+                \item When the user starts shower, he/she speaks to the NUGU Speaker and it starts ‘one minute’.
+                \item The NUGU speaker receives the user’s target shower time from the server and speaks to the user.
+                \item Simultaneously, a smart mirror presents left-over shower time with a timer.
+                \item Left-over shower time is periodically noted to the user.
+                \item Smart mirror displays various colors to give an awareness to the user.
+                \item At the last minute, the NUGU speaker speaks and the smart mirror shows that one minute is left
+                \item If the user finishes the shower in the target time, the NUGU speaker stops the timer 
+                \item If the user exceeds the target shower time, the NUGU speaker notifies unsuccessfully.
+                \item User’s shower time is sent and recorded to the server.
+                \item If successful, the NUGU speaker praises the user for reducing carbon today. And a thick tree appears on the smart mirror.
+            \end{enumerate}
+            \item Rice cooker
+            \item Fridge
+            \item Recycling
+            \item Low-carbon products
+        \end{enumerate}
+        \item Following page only notifies the recommended actions. Actual practices are recorded verbally to the NUGU speaker.
+        \begin{enumerate}
+            \item NUGU speaker notifies the start of action to the server when the user speaks trigger expression to NUGU speaker.
+            \item Server activates the following function of the action and sends a corresponding reply to the NUGU speaker.
+            \item When a NUGU speaker receives that reply from the server, the NUGU speaker notifies the user that the action is normally started. 
+            \item When the action is over, NUGU notifies it to the server.
+            \item Server manages the related information such as the duration with the time of request receipt, calculates the amount of reduced carbon emission and saves the information in the database.\\
+        \end{enumerate}
+    \end{enumerate}
+    
+    \item {\large{Records}}\\
+    Page that displays an overall reduced amount of carbon emission. Users can check the monthly reduction with a calendar and pie chart shows the amount of reduction intuitively. Also the details of each item are displayed under the pie chart.
+    \begin{enumerate}[label=\alph*]
+        \item Calendar : It is located under the top tab bar and the daily reduced carbon emission is recorded in the calendar. Users can check which month to display the month’s monthly reduced carbon emission.
+        \begin{enumerate}
+            \item There is a arrow button located at right and left end that can shift the month. User can alter the month by clicking the button. Current displaying year and month is shown at the center, in format ‘yyyy.mm’.
+            \item When the user chooses the month, the amount of reduced carbon emission of the month is displayed. 
+        \end{enumerate}
+        \item Pie chart : Reduced amount of carbon emission is visualized in pie chart.
+        \begin{enumerate}
+            \item Each action’s proportion of reduction is shown in the pie chart.
+            \item Each action has separate background colors
+            \item If the month’s reduction is zero, an exception slogan and blank chart is printed.
+        \end{enumerate}
+        \item Details of each item : Amount of cut out carbon emission of each action in the selected month is specifically explained.
+        \begin{enumerate}
+            \item They are listed in descending order, depending on the proportion in the pie chart.
+            \item Reduced carbon emission is precisely shown with their units.\\
+        \end{enumerate}
+    \end{enumerate}
+    
+    \item {\large{My page}}\\
+    This is a page where you can view and edit the information of all members of your household. Of all lists of members, users can click on a specific member to view detailed information.
+    \begin{enumerate}[label=\alph*]
+        \item Members  : All household members are displayed.
+        \begin{enumerate}
+            \item Only a household registrant who first registered the household can delete the member of the household. When the user clicks a member block. modal shows the specific information of the member. The delete button resides at the bottom of it. 
+            \item Users can add household members by clicking the add button in the upper right corner.
+            \item The total number of household members is shown at the top of the page.
+            \item Members who have not joined yet appear as empty blocks.
+            \item Users can invite members through the household's characteristic code shown at the top of the page.
+        \end{enumerate}
+        \item Information : Users can check their information by clicking on the block of corresponding name in the list.\\
+        Displays information such as name, age, and gender.
+        \item Setting : Users can edit their information by clicking the gear icon located at right side of the top tab.
+        \begin{enumerate}
+            \item Users can modify the information by clicking the relevant information. The information block changes to the input text box.
+            \item Modified contents are saved when the user clicks the save button located at the upper right side of the tab bar. 
+            \item Modified contents are saved only when the restrictions are satisfied. (blank disallowed)\\
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\section{\Large{Development Environment}}
+\begin{enumerate}[label=\arabic*]
+    \item {\large{Choice of software development platform}}
+    \begin{enumerate}[label=\alph*]
+        \item development platform
+        \begin{enumerate}
+            \item Windows 10 : Windows are most commonly used operating system in Korea.  Among them, Windows 10, is used since Windows 11, the latest version, currently has stability problems.
+            \item Mac OS Monterey : It is a Unix-based operating system and it used to use the Xcode. Xcode verifies that the application is operating in an iOS environment. 
+            \item Android 6.0 \& up (api version 23 \& up) : Application test environment, developed with React Native, which is a cross platform. Minimum version follows Kakao Talk, which is supported in Android 6.0 \& up.
+            \item iOS 11 \& up : Among the application environments, iOS is used. Minimum version follows Kakao Talk, which is supported in iOS11 \& up.
+            \item Linux Ubuntu server 20.04 : Server environment which is driven by Amazon ec2 cloud computing service. Linux is optimized for running server in multi user operating system
+        \end{enumerate}
+        \item Language / Framework
+        \begin{enumerate}
+            \item Python / Django : \\
+            Python - multi-paradigm programming language that supports both procedure-oriented and object-oriented programming. Also, quick development can be made through simple grammar, dynamic typing and garbage collectors. \\
+            django - Through the vast amount of libraries that already exist, it is possible to develop repeated core functions quickly. In addition, user can solve problems quickly via official documents and other communities . It reduces the user's workload by creating database tables as classes.
+            \item Javascript / React Native v0.66 : \\
+            Javascript - Javascript is an interpreter or JIT compilation programming language that is widely used in script language for pages and non-browser environments such as Node.js. Users can obtain lots of reference materials in that javascript is the most commonly used programming language. \\
+            React Native : React Native is a cross-platform development tool that satisfies the conditions for supporting both Android and iOS operating systems since the expected application user is a household unit. With the concept of a component that emphasizes V among mvc patterns, fast development through code recycling is possible. Because it is client side rendering, front end developers can easily and actively develop. With large community, it is possible to solve problems quickly.
+            \item SQL : \\
+            SQL is created to manage data in a relational database system, which is used to directly access the database and modify data.
+        \end{enumerate}
+        \item Software 
+        \begin{enumerate}
+            \item Visual Studio Code : Widely used code editor, developed by Microsoft. It is a scalable code editor that provides convenient functions that exceed the level of code editors through a wide variety of extensions. We will be using extensions related to Django, Javascript and React.
+            \item Android Studio : Integrated development environment for Android development. We don’t use Android studios to write code, but we’re going to use Android simulators to be sure it works in Android. Or if it is necessary to utilize the Android native functions within React Native, we will use Android studio only in that part.
+            \item Xcode : Collection of OS X’s development tools developed by Apple. It will be used to test code written reactively in an iOS environment using an iOS simulator in it.
+            \item Git \& Github : Git is a distributed version management system that manages file change and tracking multi user's access, and Github is a web service that hosts these flag stores. Since we are developing both front and back ends by two team members, collaboration is important. So to prevent code collisions, we must check each other’s code. We will periodically integrate and manage code at remote storage through Github. Also, we will use git flow strategy to securely protect the integrated development  code while sustaining concurrency
+            \item Github Action : Github Action is a tool that automates CI/CD. Currently, we do not need to deploy continuously and thus we will mainly use CI automation. When a commit is detected, the committed code is inspected through a preset process to help continuous code integration management. Also various test sets already existing in Github Action enable CI automation.
+            \item Swagger :  Swagger is an open source software framework supported by a large tool ecosystem that helps developers design, build, document and consume REST web service. Since REST api does not have standardized conventions, front end developers should always check the specifications of api according to back-end developers. We will define api standards more easily and check api standards through swagger. 
+            \item Notion : Multipurpose recording tools can create their own systems for knowledgement management, memo writing, data management and project management. We will manage the schedule using our own project schedule management template in Notion. We plan to adopt the agile method and build new sprints every 3 days for speedy development.  
+            \item MySQL8.0.27 : Relational database system which has a framework for storing data. Since our application stores a large amount of user carbon emissions in format, MySQL has advantages. Also, MySQL is a frequently used program among RDBMS and since we learned this in our major, we can implement it quickly.
+            \item MySQL workbench : Program that can manage database creation in MySQL and single development integration environment via GUI. It can develop databases easily through graphic based interaction and database schema through reverse engineering.
+            \item Tensorflow \: Tensorflow is an open-source machine learning system developed by Google in 2015. Python allows you to develop artificial intelligence easily and quickly, and you can easily develop top artificial intelligence models through a large amount of libraries that already exist. It is also suitable for our team, which needs to be developed quickly as a platform that is very good for abstraction and visualization. 
+            \item NUGU playbuilder : NUGU playbuilder is a tool that helps developing service that executes in NUGU speaker. It enables machine learning by setting indent and entity inside conversation, actions on conversation and expected conversation during the development. Since every procedure of service is in GUI, developers who are not used to AI development can easily work on the service.\\
+            \end{enumerate}
+    \end{enumerate}
+    
+    \item {\large{Software in Use}}\\
+    capture\\
+    Capture predicts monthly carbon emission based on car usage and diets and suggests 7\% of deduction. It has similarity with our service in that it predicts the emission and suggests goal deduction. But our service not only proposes goal reduction but also recommends practical actions and provides contents that help put it into action. Also our service communicates with AI speakers in the process, which brings out the action more effectively. \\
+    
+    \item {\large{Cost}}
+    \begin{enumerate}[label=\alph*]
+        \item aws ec2  t2.micro : 0.0116 * 720(hour) = 8.352 dollars per month
+        \item Acrylic Plate 30,000 KRW
+        \item Half Mirror 25 Film 21,000 KRW
+        \item Roller 1,000 KRW
+        \item Sprayer 1,000 KRW
+        \item Display (20in.) 30,000 KRW
+        \item HDMI Cable 5,000 KRW
+        \item LAN Card 10,000 KRW
+        \item DVI to HDMI Converter 5,000 KRW
+        \item Micro SD Card 5,000 KRW
+        \item RASPBERRY-PI 3 B+ 70,000 KRW\\
+    \end{enumerate}
+    
+    \item {\large{Task distribution}}
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{m{3cm}|m{4cm}}
+    \toprule
+    Ko Byung Chan & Front end and back end \\
+    Yoona Chang Il & Front end and smart mirror\\
+    Jang Hyeong Jun & Back end and smart mirror\\
+    Choi Ha Young & AI and documentation\\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+\end{enumerate}
+
+\section{\Large{Specifications}}
+\begin{enumerate}[label=\arabic*]
+    \item {\large{Main}}
+    \begin{enumerate}[label=\alph*]
+        \item This is the page that comes out the first time you download the app. Before using the application, there is a tutorial slide in the middle of the screen explaining how to use the app and how to use it. Tutorials exist on the main screen and the size is 80\% of the main page. The way to hand over the tutorial is a horizontal scroll gesture and consists of a total of three pages. At the bottom of the last page, there is a start button to finish the tutorial. 
+        \item The configuration of the tutorial slide is as follows.
+        \begin{enumerate}
+            \item household-centered management Let's reduce our house's carbon emissions with our family. Check the amount of carbon emissions generated throughout the household and check the amount of reduction. registering a new household: Register in the page of Sign Up. Participation in registered households: Register the current household ID when filling in your information at the Sign Up page.
+            \item Carbon emission-cutting actions recommendation based on analysis on the user's life pattern We recommend the most suitable carbon emission reduction activity for you to practice. This makes it easier to participate in activities. Put images that show the lives of various people.
+        \end{enumerate}
+        \item Brief visuals on the amount of the reduced carbon emission by the user, compared with previous usage. Check your carbon emissions on the app's home screen and check the amount you have reduced so far! comparing results before and after activities will be a boost to your efforts! It shows an example home screen image. There is a start button at the bottom. When the start button is pressed, the sign in button and the sign up button are vertically aligned and output in the center of the screen.\\
+        When the start button is pressed, the sign in button and the sign up button are vertically aligned and output in the center of the screen.\\
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.3]{images/1.eps}
+        \end{figure}
+    \end{enumerate}
+    
+    \item {\large{Sign in}}
+    \begin{enumerate}[label=\alph*]
+        \item There are a total of 7 boxes on the sign in page : 1. ID input box 2. password input box 3. automatic login check box 4. login button 5. password find button 6. ID find button 7. Sign up button
+        \item The UI configuration is as follows.\\
+        At the top of the screen is the logo of our service. In the center of the screen, there is a space where users enter their ID and password. And there is a button to sign in with the entered ID and password. Under the password box, there is a check box where users can check 'automatic login'. Below it, the login button is stacked on a vertical basis. A little blank space is below and three buttons are horizontally aligned. Each button is connected to a password search function, an ID search function, and a sign up function.
+        \item Login Success: \\
+        If login is successful, the user is advanced to the Home page. At this time, by emptying the stack in the page navigation, it prevents you from returning to the login page, even if you press Back on the Home page.
+        \item Login failed:
+        \begin{enumerate}
+            \item ID, password incorrect: the ID and password input box becomes red with the message "ID or password is wrong".
+            \item Server error: When the user is not logged in due to a problem in the server, you will see an error message 'Server error' through the modal. There is a 'OK' button below, and this button removes the modal. 
+        \end{enumerate}
+        \item When users run the app again after checking automatic login: \\
+        Check the following conditions and if all conditions are satisfied, then automatic login is executed. It has two conditions. Whether automatic login information is stored as "YES" in the user's cache, and whether the user's login information is normally stored in the cache.\\
+    \end{enumerate}
+    
+    \item {\large{Sign up}}
+    \begin{enumerate}[label=\alph*]
+        \item This page consists of two pages. On the first page, a total of 3 pieces of information should be entered : ID, password and number of household members. There are a total of four input boxes : ID, password, re-enter password and number of household members. Under these, there are a total of 4 buttons : Two check boxes, the next button, and the 'Join a household that is registered' button.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.3]{images/2.eps}
+        \end{figure}
+        \item The UI configuration is as follows.\\
+        There is  our applications logo at the top of the screen. Below it, the input boxes for ID, password, password re-entry, and number of household members are arranged and listed vertically. There is a 'Next' button under the input boxes and Below are two checkboxes to agree to the terms and conditions. There is a "Join a household that is registered" button under the terms and conditions check boxes.
+        \item ID\\
+        It is information that distinguishes users. Duplication between users is not possible, and if a duplicate ID is entered, an error message appears when pressing the 'Next' button. The ID must be at least 3 characters long and not more than 20 characters long.
+        \item Password\\
+        The password must consist of at least 8 characters. Also, lowercase English characters and numbers must be used.
+        \item Number of household members\\
+        This is the information you enter when registering a new household. Enter the number of household members to participate with. At this time, enter the number including yourself. The number of household members ranges from at least one to a maximum of 20.
+        \item The basis of this page is the registration of new households. If you want to participate as a household member in an already registered household, touch the "Join a household that is registered" button.
+        \item When the "Next" button fails:
+        \begin{enumerate}
+            \item If you enter the ID that duplicated
+            \item If the ID or password doesn't meet the requirements
+            \item When the password and the re-entry value are different
+            \item When the number of household members exceeds the standard
+            \item When you do not agree to all terms and conditions
+            \item When at least one of the 4 input boxes is empty
+        \end{enumerate}
+        Outputs an error message corresponding to each condition using the modal. If you press the "OK" button on the modal, the modal disappears.
+        \item When participating in already registered household:\\
+        On this page, the box for entering the number of household members disappears. Therefore, only information on ID and password is entered.
+        \item When the 'next' button is clicked, go to the next sign up page.\\
+        4 informations are entered in this page. - Name, age, gender, occupation. There are 4 input boxes corresponding to 4 pieces of information. There is one button. - The "sign up" button.
+        \item The UI consists of the following.\\
+        There is a logo at the top of the screen, and four input boxes and one button are arranged vertically below it.
+        \begin{enumerate}
+            \item Name : The user's name. The name is at least 2 characters and at most 20 characters.
+            \item Age: The age of the user. It is at least 0, at most 200.
+            \item Gender: The user's gender. When touching the gender input boxes, the selection list (men and women) appears below.
+            \item Occupation: The user's occupation. A list of occupational groups that can be selected when touching appears below.
+        \end{enumerate}
+        Pressing the 'sign up' button completes the sign up process and moves to the login screen.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.3]{images/3.eps}
+            \includegraphics[scale=0.3]{images/4.eps}
+        \end{figure}
+        \item The "sign up" button fails:
+        \begin{enumerate}
+            \item When at least one of the 4 input boxes is not entered
+            \item When the entered name doesn't meet the conditions
+            \item When the age entered is not satisfied with the conditions
+            \item If you don't choose gender
+            \item When you don't choose a job
+        \end{enumerate}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.3]{images/5.eps}
+        \end{figure}
+        \item When participating in already registered household:\\
+        Additionally, enter the household ID.\\
+        Household ID: This is the unique ID of the household you want to participate in.\\
+        If sign up fails:
+        \begin{enumerate}
+            \item Failure condition of normal signal up
+            \item entering a household ID that doesn't exist
+            \item 	When the number of household members is full\\
+        \end{enumerate}
+    \end{enumerate}
+    
+    \item {\large{Home}}\\
+    This is the first page after login is successful. Create a sense of familiarity with the user with the phrase "반가워요, OOO님" at the top of the screen. And the current date is displayed in the order of month-day-year.
+    \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{images/7.eps}
+            \includegraphics[scale=0.4]{images/8.eps}
+    \end{figure}
+    In the center of the screen, there is a circle showing the amount of carbon emissions during this month.\\
+    In the middle, the used amount of carbon emissions is indicated by kg. The emission amount is based on households. The border of the circle is filled with either green or red to match the emission amount compared to the average. When the emission amount is lower than the average, the circle becomes green. Else if it exceeds the amount of average, the circle becomes red. \\
+    \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{images/6.eps}
+    \end{figure}
+    Below the circle, we print out the maximum three actions that reduce carbon emissions the most. When you click it, it navigates to the recommendation action tab.\\
+    When the recommended action to reduce carbon emissions is practiced so well: There will be no recommended action displayed on the screen instead a message saying that ‘you are doing pretty well’ with a green text box. \\
+    There is a tab navigation at the bottom. From the left, there is the Home-Recommended action-Records-My Page tab.\\
+    The icon of the currently entered tab is displayed darkly.\\
+    To leave the app, you have to press Back twice.\\
+    
+    \item {\large{Recommmended action}}
+    \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{images/9.eps}
+    \end{figure}
+    \begin{enumerate}[label=\alph*]
+        \item This page outputs 2 pieces of information.
+        \begin{enumerate}
+            \item The amount of carbon that you can reduce.
+            \item Recommendations for users' lives.
+        \end{enumerate}
+        \item The UI configuration is as follows.\\
+        At the top of the screen, there is a phrase "The amount of carbon that can be reduced at the moment." Below that, output the amount of carbon in kg units (in g units when less than 1 kg).\\
+        Below that, the list of carbon emission behaviors most suitable for the user is vertically aligned and output. A total of three things will be printed.\\
+        If you click one of the list items, you will go to a page that details how to practice the item's behavior.
+        \item Detailed page of each recommended behavior:\\
+        The following information is displayed on the detail page.
+        \begin{enumerate}
+            \item AI speaker trigger expression is displayed to practice the action.
+            \item Also, the user can check the average and user's carbon emission of the item he or she clicked. Bottom part displays the simple introduction to the action.
+            \item By comparing the average carbon emission and the user's emission of each item, urgency is expressed by visual effects, such as colors.
+            \item Each action is linked with an AI speaker and smart electronics, so that practicing the actions are convenient.
+        \end{enumerate}
+        \item Details about Recommendable actions\\
+        Reduce shower time
+        \begin{enumerate}
+            \item Procedure
+            \begin{enumerate}[label=\arabic*]
+                \item When the user starts shower, he/she speaks to the AI Speaker and it starts ‘one minute’.
+                \item The AI speaker receives the user’s target shower time from the server and speaks to the user.
+                \item Simultaneously, a smart mirror presents left-over shower time with a timer.
+                \item Left-over shower time is periodically noted to the user.
+                \item Smart mirror displays various colors to give an awareness to the user.
+                \item At the last minute, the AI speaker speaks and the smart mirror shows that one minute is left
+                \item If the user finishes the shower in the target time, the AI speaker stops the timer 
+                \item If the user exceeds the target shower time, the AI speaker notifies unsuccessfully.
+                \item User’s shower time is sent and recorded to the server.
+                \item If successful, the AI speaker praises the user for reducing carbon today.
+            \end{enumerate}
+            \item AI speaker
+            \begin{enumerate}[label=\arabic*]
+                \item The AI speaker refers to the remaining time when the remaining time is 5 minutes and 1 minute. At this time, if the user's shower starts at less than 5 minutes, only when there is 1 minute left.
+                \item If the shower is over within the remaining time through the user's stop speech, the speaker gives the user a compliment. "You did a great job. You saved the earth again today!" Also, we guide you in g units the amount of carbon that has decreased due to today's shower.
+                \item If you don't finish your shower within the target time due to the end of the remaining time, tell the user that you're sorry that you didn't succeed. "That's too bad. I hope you succeed next time!"
+            \end{enumerate}
+            \item Smart mirror
+            \begin{enumerate}[label=\arabic*]
+                \item When the user speaks “나 샤워해” to AI speaker, server sends predicted shower time to smart mirror.
+                \item Smart mirror pops up the shower time timer on the screen and starts the timer. The remaining shower time is printed in minutes-second format. And from the remaining time, it will be reduced to 0 seconds.
+                \item When the timer’s 5 minute left, the smart mirror changes the background color to yellow, to visually notify the user.
+                \item When the timer’s 1 minute left, the smart mirror changes the background color again to notify.
+                \item Smart mirror changes its screen back to original when the user notifies the end of shower or the timer ends.\\
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+    
+    \item {\large{Records}}\\
+%    \begin{figure}[H]
+%            \centering
+%            \includegraphics[scale=0.3]{images/10.eps}
+%            \includegraphics[scale=0.3]{images/11.eps}
+%        \end{figure}
+    Page that displays an overall emitted amount of carbon emission. Users can check the daily emissions with a calendar and the bar chart shows the amount of emissions intuitively. Also a comparison to the past month and the same month last year.\\
+    Bar chart \: Amount of carbon emission he used is visualized in the bar graph.
+    \begin{enumerate}[label=\roman*]
+        \item Bar graph can be scrolled left to right to check more days.
+        \item By clicking ‘Learn more’, a monthly emission bar graph is also available. \\
+    \end{enumerate}
+    
+    \item {\large{MyPage}}
+    \begin{enumerate}[label=\alph*]
+        \item Users are to complete furniture configuration at the top of the page.
+%        \begin{figure}[H]
+%            \centering
+%            \includegraphics[scale=0.3]{images/12.eps}
+%    \end{figure}
+        \item Components.
+        \begin{enumerate}
+            \item This is the key element of the 'Edit' and 'Delete' buttons.
+            \item The name of the 'Edit' button, indicating the block for that item.
+            \begin{enumerate}[label=\arabic*]
+                \item When I clicked on the block the textbox changed.
+                \item Add' button where the contents of all blocks are organized.
+                \item Fix is scheduled.
+%            \begin{figure}[H]
+%                \centering
+%                \includegraphics[scale=0.3]{images/13.eps}
+%                \includegraphics[scale=0.3]{images/14.eps}
+%            \end{figure}
+        \end{enumerate}
+            \item After pressing the 'Delete' button, you will see a 'Really Delete' button and a 'Cancel' button.
+            \begin{enumerate}[label=\arabic*]
+                \item Click the 'OK' button to delete the entire function.
+                \item Click the 'Cancel' button to return to the previous screen.
+        \end{enumerate}
+%            \begin{figure}[H]
+%                \centering
+%                \includegraphics[scale=0.3]{images/15.eps}
+%            \end{figure}
+            \item In the current corner there is an 'Add' button.
+            \begin{enumerate}[label=\arabic*]
+                \item Shows the name of the 'Add' button, the name and the block of the animation.
+                \item When I clicked on the block the textbox changed.
+                \item When the contents of all blocks are written, click the ‘Add’ button.
+                \item You are given a code that connects with the newly added block.
+                \item When the member enters the code, it is connected to the block and is officially registered in the member list.
+        \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\section{\Large{Architecture Design \& Implementation}}
+\begin{enumerate}[label=\arabic*]
+    \item {\large{Overall Architecture}}\\
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.2]{images/overallarchitecture.eps}
+    \end{figure}
+    This is the Our service consists of five modules. Each is front-end, back-end, database, machine learning, and IoT such as AI speaker and smart mirror. Among them, front-end and IoT are modules that directly communicate with users. \\
+    The first module is the front-end. We used JavaScript language and React Native, a cross-platform framework that supports both Android and IOS as a mobile application framework. So, all household members can use our application regardless of their smart phone model. Through the application, the user can belong to the household and check the appropriate carbon emission reduction behavior. In addition, users can check the amount of carbon they can reduce when they practice carbon emission reducing efforts in each behavioral area and the amount of carbon emission they are currently emitting in each behavioral area.\\
+    The second is the back-end. We used the Django framework based on the Python language as the web application server framework. In addition, uWSGI was used as wsgi middleware that connects web server and web application server. And nginx was used as the web server. The backend largely communicates with three devices: application, AI speaker, IoT such as smart mirror. So, the server is implemented in the form of providing REST API. When the AI speaker notifies the server that the user has started/ended the carbon emission reduction behavior, the server stores it to the database. Also, the server responds when the application requests the user’s information.\\
+    Third, it is a database.  We used mysql as a database. Mysql is an RDBMS, we store user information, user behavior practice records, information related to user behavior practice, and previous dataset statistics.\\
+    The fourth is machine learning. We predict the most appropriate shower shortcut time through the user’s first shower time. Reducing the shower time by 1 minute has a problem of presenting an absolute value without considering the shower time of the user. Therefore, there is a problem in that users try to reduce 1minute even though they can reduce more time without experiencing inconvenience. Therefore, we present an AI model that presents an appropriate reduction for the user’s shower time.\\
+    Lastly, it is IoT. We used AI speakers to interact with users by voice when practicing carbon emission reduction behavior, making it easier to use the service in more diverse situations. Voice interaction services are developed using existing development tools. In the case of smart mirrors, raspberry pie was used.\\
+    
+    \item {\large{Directory Organization}}\\
+    \begin{enumerate}[label=\alph*]
+        \item front end
+\begin{flushleft}
+        \tablefirsthead{\toprule Directory & File name & etc \\}
+        \tablehead{\toprule Directory & File name & etc\\}
+        \tabletail{\midrule}
+        \tablelasttail{\bottomrule}
+        \begin{supertabular}{p{0.5\linewidth} | p{0.3\linewidth} p{0.05\linewidth}}
+        \midrule
+        /front-end & \makecell[l]{.eslintrc.js\\.gitignore\\.prettierrc.js\\.watchmanconfig\\app.json\\babel.config.js\\index.jsx\\package.json} \\
+        \midrule
+        
+        /front-end/apps	& App.jsx \\
+        \midrule
+        
+        /front-end/apps/assets & \makecell[l]{environmenttw.png\\globe.png\\globew.png\\logo.png\\logo2.png}\\
+        \midrule
+        
+        \makecell[l]{//front-end/apps\\/navigator} & \makecell[l]{mainNavigator.jsx\\signInNavigator.jsx\\bottomTabNavigator.jsx}\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/api} & axios.jsx\\
+        \midrule
+
+        \makecell[l]{/front-end/apps\\/components/common} & wrapper.jsx\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/context} & tokenContext.jsx\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/navigator} & \makecell[l]{bottomTabNavigator.jsx\\ GraphDetailsNavigator.jsx\\graphNavigator.jsx\\loginNavigator.jsx\\mainNavigator.jsx}\\
+        \midrule
+
+        \makecell[l]{/front-end/apps\\/components/screens\\/main} & main.jsx\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/screens\\/signUp} & signUp.jsx\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/screens\\/signIn} & signIn.jsx\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/screens\\/home} & home.jsx\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/screens\\/recommended} & recommended.jsx\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/screens\\/records} & records.jsx\\
+        \midrule
+        
+        \makecell[l]{/front-end/apps\\/components/screens\\/profile} & \makecell[l]{profile.jsx\\ myPageList.jsx}\\
+        \end{supertabular}
+\end{flushleft}
+        
+        \item back end
+        \begin{flushleft}
+        \tablefirsthead{\toprule Directory & File name & etc \\ \midrule}
+        \tablehead{\toprule Directory & File name & etc\\ \midrule}
+        \tabletail{\midrule }
+        \tablelasttail{\bottomrule}
+        \begin{supertabular}{p{0.5\linewidth} | p{0.3\linewidth} p{0.05\linewidth}}
+        /server & \makecell[l]{.gitignore\\ manage.py}\\
+        \midrule
+        /server/app & \makecell[l]{\_\_init\_\_.py\\admin.py\\apps.py\\models.py\\serializer.py\\tests.py\\views.py}\\
+        \midrule
+        /server/config & \makecell[l]{\_\_init\_\_.py\\asgi.py\\settings.py\\urls.py\\wsgi.py}\\
+        \midrule
+        /server/app/migration & \makecell[l]{0001\_initial.py\\002\_auto\_2021\\        1126\_1010.py\\ \_\_init\_\_.py}\\
+        \midrule
+        /server/auth/migration & \makecell[l]{0001\_initial.py\\ \_\_init\_\_.py}\\
+        \end{supertabular}
+\end{flushleft}
+        
+    \end{enumerate}
+    
+    \item {\large{Module 1 : front end}}
+    \begin{enumerate}[label=\alph*]
+        \item Purpose\\
+        It is used to provide users with records of behavioral practices. It is also used to guide how to practice behavior. And it is to receive user information and manage household members.
+        \item Functionality\\
+        First of all, it provides a function of managing user information and household members, checking emissions for each behavior of the current user, and checking the amount of carbon that can be reduced. It also provides a function of checking average emissions in the group under the same conditions and checking carbon emission records due to daily and monthly behavior practice. Finally, it provides the function of checking how to practice carbon emission reduction behavior.
+        \item Location of Source Code\\
+        /front-end
+        \item Class Component
+        \begin{enumerate}
+            \item Main Page\\
+            It is the first component to be output when running the app. It is implemented as a functional component, and there is a style sheet representing css. The buttons in the component are imported from the common folder. The logo is imported from the assets folder.
+            \item Sign In Page\\
+            There is an inputText that receives an ID and password. The ID and password are managed through global variables within the file. When clicking the login button, put the ID and password in the request body and send a post request to the server.At this time, communication with the server uses the axios library and is processed asynchronously. React hooks are used to process asynchronous actions in functional components.
+            \item Sign Up Page\\
+            Because we need to receive a lot of information from the user over multiple pages when signing up, we manage multiple components within one file. This makes it easy to manage variables that have received user information without using additional status management libraries.
+            \item Home Page\\
+            This is the default routing page of the bottom tab bar. Page navigation was implemented through the React Navigation Library. The circular graph on the main page also used the graph library. The amount of emissions output in the screen is received through communication with the server when the page is first rendered.
+            \item Records Page\\
+            This page shows the daily and monthly records. Every time you click on that button, data is retrieved through communication with the server.
+            \item Recommended Action Page\\
+            When the user clicks on the list showing each behavior, it shows detailed information through modal. If you press the OK button, the modal window turns off. In the details, my emissions for the behavior, the average emissions of people in the same group as me, and the amount of carbon that can be reduced are output.
+            \item My Page\\
+            You can manage your information and household members on my page. At this time, only the householder is authorized to manage the household members. Permission status is processed by the server. The list of household members is implemented through the React flat list. In addition, the information received when modifying the information is managed as a global variable, and is delivered to the server when the modification button is clicked.
+        \end{enumerate}
+        \item Where it's taken from\\
+        Data is directly input by the user, or previous data is retrieved from db.
+        \item How/Why we used the module\\
+        React Native was used because it is a cross-platform framework that supports both Android and IOS. Since it mainly shows the user's record, it is used in the form of outputting the data when the user's data is retrieved from the server.
+    \end{enumerate}
+    
+    \item {\large{Module 2 : back end}}
+    \begin{enumerate}[label=\alph*]
+        \item Purpose\\
+        Our service helps with various behaviors at home. Therefore, it should be linked with not only applications but also smart mirrors and AI speakers. For this reason, a server that manages many devices in an integrated manner was needed.
+        \item Functionality\\
+        It mainly provides REST APIs that respond to requests when sent from clients. When the client requests db's data, it inquires db and delivers the information to the client. Or it is in charge of communication between connected devices.
+        \item Location of Source Code\\
+        / server
+        \item Class Component
+        \begin{enumerate}
+            \item app/views.py\\
+            It is a part that is responsible for the core functions of our service, such as responding to user information requests and recording behavioral practices. This part is responsible for core business logic, and the view corresponding to the controller among the MVC patterns is implemented as a class-based view (CBV). Each function has each endpoint.
+            \item app/models.py\\
+            It is a file responsible for automatically connecting data from objects and databases. This makes it easier to access values in the database from Django. In this file, all tables in the database appear as objects.
+            \item app/serializer.py\\
+            This file serves to make the response value in the appropriate form to communicate with. All of the values modified in view are not in a bonded form to communicate with the client. Therefore, we need to make the value in an appropriate form. The client and server communicate in the form of JSON, so the serializer classes change the value to JSON form in this file.
+            \item config/urls.py\\
+            It is a file that manages endpoints for communication. It also connects endpoints and views. Endpoints for all requests are set here.
+        \end{enumerate}
+        \item Where it's taken from\\
+        In terms of data, data comes from applications, databases and various IoT such as AI speakers and smart mirrors.
+        \item How/Why we used the module\\
+        Django was used because it is a web application framework based on Python, the most common language. In addition, nginx and uWSGI were used to provide more stable services. The WAS was built in Django, and the web server was built in nginx. And they were connected by uWSGI.
+    \end{enumerate}
+    
+    \item {\large{Module 3 : database}}
+    \begin{enumerate}[label=\alph*]
+        \item Purpose\\
+        We constructed a database to systematically store a lot of data generated when users practice carbon emission reduction behavior.  This is also because data with a fixed format must be stored steadily. So we chose MySQL, which is RDBMS. It is also for better AI modeling through data accumulation.
+        \item Functionality\\
+        It provides systematic data management through tables. In addition, relationships can be expressed through foreign keys between tables, enabling more efficient space management. In addition, we can easily manipulate a lot of data through query statements.
+        \item Location of Source Code
+        \begin{enumerate}
+            \item /server/app/models.py - we can check the DB in the form of ORM in the server directory. 
+            \item on aws rds
+        \end{enumerate}
+        \item Class Component
+        \begin{enumerate}
+            \item auth\_user\\
+            A table that stores user information. It is a user table provided by Django and can be easily expanded.
+            \item personalShowerData\\
+            A table that stores unchanged values among the user's shower data. It reduces the occurrence of duplicate values by distinguishing them from the shower log table.
+            \item showerLog\\
+            This is a table that stores the user's shower records. It regularly stores data every time a user takes a shower.
+            \item showerDataSet\\
+            This is the data based on the age group of the dataset. This is a table that we refer to when we need information about the same age as the user.
+        \end{enumerate}
+        \item Where it's taken from\\
+        It stores data input from the user. Or save behavioral records when the user practices behavior.
+        \item How/Why we used the module\\
+        First, we used user tables provided by 'Django'. Therefore, there were tables related to user information, and we expanded tables containing user behavior practice information from those tables. a table was created to store the user's behavioral practice records and a table to store invariant values such as the user's target shower time. And a table was created to store statistical content for datasets for ai learning.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.14]{images/database.eps}
+        \end{figure}
+    \end{enumerate}
+    
+    \item {\large{Module 4 : machine learning}}\\
+    \begin{enumerate}[label=\alph*]
+        \item Purpose\\
+        Our service provides users the group’s carbon emission and the user’s predicted carbon reduction through the application. It invokes users to do the recommended action and set the target for them. Also users can comprehend the validity of the action and the number. In the process, machine learning is essential. \\
+        \item Functionality\\
+        Machine learning enables predicting new user’s carbon emission reduction. As the new application user downloads and signs in, data such as age and gender is sent to the database and his/hers reduction is predicted through the machine learning model we prepared.\\
+        \item Location of Source Code\\
+        ESG\_Home.ipynb
+        \item Class Component\\
+        \begin{enumerate}
+            \item train\_test\_split\\
+            It splits arrays or matrices into random train and test subsets, considering the parameters such as test\_size, train\_size and stratify.
+            \item StandardScaler\\
+            It standardizes features by removing the mean and scaling to unit variance. Standardization of a dataset is a common requirement for many machine learning estimators.
+            \item sklearn.metrics\\
+            It implements functions assessing prediction error for specific purposes. We used r2\_score, mean\_absolute\_error and mean\_squared\_error to evaluate and compare the models.
+            \item LinearRegression\\
+            Linear regression makes predictions by creating a linear function of training data.
+            \[ŷ = w[0] × x[0] + w[1] × x[1] + … + w[p] × x[p] + b\]
+            x[0] to x[p] is the feature and weight w and y-intercept b are parameters learned by the model
+            \item SGDRegressor\\
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale=0.1]{images/AI/sgd_pic.eps}
+            \end{figure}
+             Stochastic Gradient Descent (SGD) is a stochastic gradient descent method that randomly selects a sample from each step and calculates the gradient of the sample.\\
+             It has the advantage of being able to be applied to the large training dataset because it is repeatedly processed with small data and requires only memory for one sample.
+            \item LogisticRegression\\
+            Logistic regression is a supervised learning algorithm that predicts a probability that data falls into a category from 0 to 1 and predicts a category according to that probability. \\
+            Odds is the probability divided by the probability that an event has not occurred. In logistic regression, several features are multiplied by coefficients and intercepts are added to obtain and analyze the final value log-odds.\\
+            The logistic function, also called the sigmoid function, is a function that receives the log-odds obtained above as an input value and outputs a result value between 0 and 1. \\
+            We consider loss to ensure that logistic regression predicts the probability properly, i.e., whether the coefficients and intercepts obtained are appropriate. \\
+            Logistic regression can be seen as having high accuracy when this log loss value is minimized.
+            \item RandomForestRegressor\\
+            \begin{figure}[H]
+                \includegraphics[scale=0.2]{images/AI/randforest_pic.eps}
+            \end{figure}
+            Random forest is a model that collects regression results from multiple decision trees configured through training and concludes.\\
+            Ensemble learning is a method of using multiple learning algorithms for overfitting prevention and high performance. Random forests initially generate trees through bagging. Bagging is the process of creating a decision tree by selecting some rows of training data, allowing overlapping of rows. Diversity is given to the decision tree by limiting the number of features to be used during this process, usually by the square root of the total number of attributes.
+            \item ExtraTreeRegressor\\
+            Extra trees, also called Extremely randomized trees, are even more random than random forests. Random selection of the number of data samples and feature selection increases prediction accuracy and prevents overfitting.
+            \item GradientBoostingRegressor\\
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale=0.3]{images/AI/gbr_pic.eps}
+            \end{figure}
+            Random forest is a model that collects regression results from multiple decision trees configured through training and concludes.\\
+            The main parameter of gradient boosting is the learning rate, a hyper-parameter that determines how strongly the error in the previous tree will be corrected. Increasing the learning rate creates a complex model because it strengthens correction. Also increasing the n\_estimator value adds more trees to the ensemble, complicating the model and fitting the train data more accurately. To prevent overfitting, you can reduce the depth of the tree or reduce the learning rate.
+            \item AdaBoostRegressor\\
+            AdaBoost is a model that adds weight to the results of other learning algorithms (weak learners). It is also used in combination with many other learning algorithms.\\
+            It is adaptive in that the weak learner can correct the results of incorrect analysis in the previous model. This makes them vulnerable to noise and outliers, but less vulnerable to overfitting than other learning algorithms.
+            \item XGBRegressor\\
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale=0.1]{images/AI/xgb_pic.eps}
+            \end{figure}
+            The Extreme Gradient Boosting model is a model that learns gradient boosting models in parallel.\\
+            Standard gradient boosting models do not have overfitting regulatory features, but XGBoost models are robust with its own overfitting regulatory features.
+            \item LGBMRegressor\\
+            Light GBM is a gradient boosting framework and is a tree-based learning algorithm. Unlike models that scale trees horizontally, LBGM grows trees vertically.\\
+            Even when dealing with large-sized data, memory usage is low, results are fast, and the results are focused on accuracy. LGBM is vulnerable to overfitting and is not used well in small datasets. Our data is a large dataset with 49.027 rows and thus we chose this model. The analysis showed a very high accuracy score, 99.99990470818714\%.
+            \item HistGradientBoostingRegressor\\
+            A histogram-based gradient boosting tree model, suitable for large datasets with more than 10,000 rows. It handles missing values on its own and determines whether the missing values should go to the left or right child during the training process. If missing values that were not in the training process appear during prediction, they are mapped to the child with the most samples.
+            \item permutation\_importance\\
+            It is a model inspection technique that can be used for any fitted estimator when the data is tabular. It is defined to be the decrease in a model score when a single feature is randomly shuffled. By breaking down the relationship between the feature and the target, the model score is indicative of how much the model depends on the feature.\\
+        \end{enumerate}
+        \item Where it's taken from\\
+        Based on the data we provide, models learned to predict the target, which here is reduction. And as the new user signs in, it receives the user’s data from our database and analyzes the reduction of the user.\\
+        \item How/Why we used the module
+        \begin{enumerate}
+            \item pandas\\
+            It’s a software library written for the Python programming language for data manipulation and analysis. In particular, it offers data structures and operations for manipulating numerical tables and time series.
+            \item io\\
+            The io module provides Python’s main facilities for dealing with various types of I/O. It enables reading files and printing outputs.
+            \item numpy\\
+            It is a library for the Python programming language, enabling large, multidimensional arrays and matrices, along with a large collection of high-level mathematical functions to operate on these arrays.
+            \item seaborn\\
+            It is a Python data visualization library based on matplotlib. It provides a high-level interface for drawing attractive and informative statistical graphics.
+            \item matplotlib.pyplot\\
+            It is a collection of functions that make matplotlib work like MATLAB. Each pyplot function makes some changes to a figure, such as creating a figure, creating a plotting area in a figure, plotting some lines in a plotting area and decorating the plot with labels.\\
+        \end{enumerate}
+    \end{enumerate}
+    
+    \item {\large{Module 5 : AI speaker \& smart mirror}}
+    \begin{enumerate}[label=\alph*]
+        \item Purpose\\
+        There are many situations in the home where interaction through graphics is difficult, such as bathrooms. We provide voice-based interaction through AI speakers to make the service easier to use in these various situations. In addition, smart mirrors can induce more intuitive behavior to users.\\
+        \item Functionality\\
+        It helps to practice the action of reducing carbon emissions. For example, when the user informs the AI speaker of the start of the shower when taking a shower, the user's proper shower time appears as a timer on the smart mirror.\\
+        \item Location of Source Code
+        \begin{enumerate}
+            \item /smartMirror
+            \item AI speaker play builder\\
+        \end{enumerate}
+        \item Class Component
+        \begin{enumerate}
+            \item ask.showerStart\\
+            It's a place where AI speakers recognize a user's saying, "I'm going to start taking a shower." It is a place where AI speakers learn to recognize "I," "Shower," and "Start" as different entities.
+            \item ask.showerEnd\\
+            It's a place where AI speakers recognize a user's saying, "I finished taking a shower." It is a place where AI speakers learn to recognize "I," "Shower," and "finish" as different entities.
+            \item answer.showerStart\\
+            It is a file paired with ask.showerStart. Ask.showerStart is about recognizing the start of the shower, while answer.showerStart is about what the AI speaker should do after starting the shower.
+            \item answer.showerEnd\\
+            It is a file paired with ask.showerEnd. Ask.showerEnd is about recognizing the end of the shower, while answer.showeEnd is about what the AI speaker should do after the shower.
+            \item answer.showerSuccess\\
+            After the shower is completed, a praise message is output when the user successfully finishes the shower in time.
+            \item answer.showerFailed\\
+            After the shower is completed, a praise message is output when the user fails to finish the shower in time.
+            \item smartMirror/main\\
+            It is a file that implements a smart mirror. It is implemented based on the web and serves as a real mirror through raspberry pie. Basically, the current time and weather are output, and a shower timer is output at the start of the shower.\\
+        \end{enumerate}
+        \item Where it's taken from\\
+        AI speakers receive data directly from users. In the case of smart mirrors, data is received through the server.\\
+        \item How/Why we used the module\\
+        We created a voice-based service through a tool that can configure voice interaction. In addition, smart mirrors are based on the web.\\
+        Looking at the structure of the voice interaction, when you inform the AI speaker that the shower is over after the shower, it compares the timer you used at the beginning of the shower with the time you took and announce to the user whether reducing the shower time is successfully.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.13]{images/smartMirror.eps}
+    \end{figure}
+    \end{enumerate}
+\end{enumerate}
+
+\section{\Large{Use Cases}}
+\begin{enumerate}[label=\arabic*]
+    \item {\large{Mobile Application}}\\
+    When person who use 시나브로 for the first time, login page will be shown at first. If login data exists, it goes to the home screen. 
+    \begin{enumerate}[label=\alph*]
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.3]{images/1.eps}
+        \end{figure}
+        \item Use Case 1\\
+        Person who’s using the app can sign in to the service by entering their account ID and password. If he forgot his account ID or password, he can click Find ID or Find Password button under log in.  After logging in, it goes to the home screen.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.3]{images/2.eps}
+        \end{figure}
+        \item Use Case 2\\
+        He can sign up 시나브로 by entering his identification ID, password, confirm password, name, age, and gender. \\
+        If he wants to participate in registered households, he can go to sign up and click ‘join existing household’ and he can join by entering the household ID. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{images/8.eps}
+            \includegraphics[scale=0.4]{images/6.eps}
+        \end{figure}
+        \item Use Case 3\\
+        Home screen is the first screen shown when a person logged in. He can check his household’s carbon emission of the month by comparing it to the average emission amount. If household emissions are lower than average, the circle in the home screen appears green, and if they are higher, it appears red. \\
+        Right under the circle, there are previews for the recommendation actions which can reduce carbon emissions. By clicking it, we move him to the recommendation action tab.\\
+        At the bottom of the home screen, there is navigator tab: home, recommendation actions, carbon emission graph, and profile.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{images/9.eps}
+        \end{figure}
+        \item Use Case 4\\
+        He can check the recommended actions that can reduce carbon emissions. The more he can reduce, the darker blue the block has. It is arranged in an amount that can be reduced a lot. To practice the recommended action, he can click the block for detailed information. We show how much carbon emission can be reduced, the average of emission from other households, the average of his emission and easy guide to the specific action. \\
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{images/10.eps}
+%            \includegraphics[scale=0.4]{images/11.eps}
+        \end{figure}
+        \item Use Case 5\\
+        He can check the daily carbon emissions bar graph. Under the bar graph it shows the current month’s emissions for him to compare to past month’s emissions and the same month from last year. He can also click ‘learn more’ right under the bar graph for a detailed bar graph. Daily and monthly bar graphs are available. He can scroll bar graphs left to right to see previous emissions. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.4]{images/12.eps}
+            \includegraphics[scale=0.3]{images/14.eps}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[scale=0.3]{images/15.eps}
+            \includegraphics[scale=0.3]{images/13.eps}
+        \end{figure}
+        \item Use Case 6\\
+        On the profile tab, he can check who is currently registered as a household member. For the members registered, he can modify their name, age, and gender. He can also remove the existing member.\\
+        He can also add new members by clicking the ‘add’ button under the members block. While adding new member, he must enter new member’s name, age, and gender for it.
+    \end{enumerate}
+    
+    \item {\large{AI speaker}}
+    \begin{enumerate}[label=\alph*]
+        \item Use Case 1\\
+        When a person who's taking a shower, tell the speaker that he will shower. Since it is based on each individual's information, his name is also required. The AI speaker then sends he's ID and shower request to the server. Then, the server sends a request to the DB for shower related things for the user. The DB transmits the target time for he's shower to the server and records the shower start time.
+        \item Use Case 2\\
+        He tells the AI speaker that the shower is over. Again, the name is also required, as it is based on each individual's information. The AI speaker then sends a request to the server for he's ID and shower termination. Then, the server sends information related to he's shower termination to the DB. DB records he's shower end time, records the time taken to take a shower, and records the carbon emission obtained by calculating the shower time.
+        \item Use Case 3\\
+        He tells the AI speaker that the shower is over. The AI speaker sends he's ID and shower end to the server. The server calculates the shower time by subtracting it from the end time and the start time recorded in the DB. And the server compares this time with the target time, and if it takes less than the target time, it sends a successful response to the AI speaker. The AI speaker delivers a success message to him. 
+        \item Use Case 4\\
+        He tells the AI speaker that the shower is over. The AI speaker sends he's ID and shower end to the server. The server calculates the shower time by subtracting it from the end time and the start time recorded in the DB. And the server compares this time with the target time, and if it takes more than the target time, it sends a failure response to the AI speaker. The AI speaker delivers a failure message to him.
+    \end{enumerate}
+\end{enumerate}
+
+\begin{thebibliography}{00}
+
+\bibitem{b1} KOSTAT, Statistics Korea (https://kosis.kr/statisticsList/statistics\\ListIndex.do?vwcd=MT\_ZTITLE\&menuId=M\_01\_01\#content-group)
+\bibitem{b2} Korea Meteorological Administration (https://data.kma.go.kr/\\stcs/grnd/grndTaList.do\?pgmNo=70)
+\bibitem{b3} Water supply statistics : Ministry of Environment of Korea, (https://www.waternow.go.kr/mobile/ssdoData/\?pMENUID=\\\8\&ATTR\_5=4)
+\bibitem{b4} Pole (https://post.naver.com/viewer/postView.nhn\?volume\\No=13822121\&memberNo=1895714)
+\bibitem{b5} Report of public opinion on 2050 long-term low greenhouse gas emission development strategies - Ministry of Culture, Sports and Tourism, 2020.07.31 (https://www.korea.kr/archive/expDocView.do?docId=39291)
+\bibitem{b6} 생활 실천 안내서로 탄소중립 사회 함께 만들어요 - Ministry of Environment of Korea, 2021.08.04 (https://www.gihoo.or.kr/netzero/action/action0303View.do?idx\\=26341)
+\bibitem{b7} [에코머니 활용방법 총정리] 그린카드 에코머니, 이렇게 활용하세요~! - GreenCard official blog, 2021.03.15
+(https://blog.naver.com/thegreencard/222275780343)
+\end{thebibliography}
+
+\end{document}
